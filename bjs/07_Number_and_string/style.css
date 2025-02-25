@@ -1,9 +1,22 @@
 .calc-row {
     height: 100vh;
     font-family: 'Share Tech Mono', monospace;
+    display: flex;
+     
+}
+
+#calc {
+    background-color: hsl(249, 24%, 35%);
 }
 
 .input-window {
     text-align: end;
     font-size: x-large;
+    margin-bottom: 0px;
 }
+
+.btn {
+    font-size: x-large;
+    padding: 0px;
+}
+
