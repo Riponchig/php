@@ -21,15 +21,15 @@ const answerField = document.getElementById('answerField');
 
 // Обновляем интерфейс
 orderNumberField.innerText = orderNumber;
-answerField.innerText = `Вы загадали число ${answerNumber }?`;
+answerField.innerText = `Вы загадали число ${numberToText(answerNumber)}?`;
 
 // генератор фраз
 
 function getRandomPhraseGood() {
     const phrases = [
-        `Да это легко! Ты загадал ${answerNumber}?`,
-        `Наверное, это число ${answerNumber}?`,
-        `Дай угадаю! Это ${answerNumber}?`
+        `Да это легко! Ты загадал ${numberToText(answerNumber)}?`,
+        `Наверное, это число ${numberToText(answerNumber)}?`,
+        `Дай угадаю! Это ${numberToText(answerNumber)}?`
     ];
     return phrases[Math.floor(Math.random() * phrases.length)];
 }
@@ -49,6 +49,41 @@ function getRandomPhraseFinal() {
         `Я лучший !!!\n\u{1F60E}`
     ];
     return phrases[Math.floor(Math.random() * phrases.length)];
+}
+
+// превращалка цифр в число
+function numberToText(number) {
+    const numMap = {
+        0: 'ноль', 1: 'один', 2: 'два', 3: 'три', 4: 'четыре',
+        5: 'пять', 6: 'шесть', 7: 'семь', 8: 'восемь', 9: 'девять',
+        10: 'десять', 11: 'одиннадцать', 12: 'двенадцать', 13: 'тринадцать',
+        14: 'четырнадцать', 15: 'пятнадцать', 16: 'шестнадцать',
+        17: 'семнадцать', 18: 'восемнадцать', 19: 'девятнадцать',
+        20: 'двадцать', 30: 'тридцать', 40: 'сорок', 50: 'пятьдесят',
+        60: 'шестдесят', 70: 'семьдесят', 80: 'восемьдесят', 90: 'девяносто',
+        100: 'сто', 200: 'двести', 300: 'триста', 400: 'четыреста',
+        500: 'пятьсот', 600: 'шестьсот', 700: 'семьсот', 800: 'восемьсот',
+        900: 'девятьсот'
+    };
+
+    // Если число меньше 20, возвращаем его как текст
+    if (number <= 19) {
+        return numMap[number] || number.toString();
+    }
+
+    // Если число больше 19 и меньше 100, выводим как комбинацию десятков и единиц
+    if (number < 100) {
+        const tens = Math.floor(number / 10) * 10;
+        const ones = number % 10;
+        return ones === 0 ? numMap[tens] : `${numMap[tens]} ${numMap[ones]}`;
+    }
+
+    // Если число больше 99, выводим как комбинацию сотен и оставшейся части
+    if (number < 1000) {
+        const hundreds = Math.floor(number / 100) * 100;
+        const remainder = number % 100;
+        return remainder === 0 ? numMap[hundreds] : `${numMap[hundreds]} ${numberToText(remainder)}`;
+    }
 }
 
 // кнопка повтор
@@ -75,7 +110,7 @@ document.getElementById('btnRetry').addEventListener('click', function () {
     answerNumber  = Math.floor((minValue + maxValue) / 2);
 
     orderNumberField.innerText = orderNumber;
-    answerField.innerText = `Вы загадали число ${answerNumber }?`;
+    answerField.innerText = `Вы загадали число ${numberToText(answerNumber)}?`;
 })
 
 // кнопка <
