@@ -3,22 +3,13 @@ let operation = null;
 
 const inputWindow = document.getElementById('inputWindow');
 
+// кнопки 0 - 9
+document.querySelectorAll('.btn-num').forEach(button => {
+    button.addEventListener('click', function () {
+        inputWindow.value += this.getAttribute('data-num');
+    });
+});
 
-document.getElementById('btn_num').addEventListener('click', function () {
-    inputWindow.value += this.getAttribute('data-num');
-})
-
-document.getElementById('btn_sum').addEventListener('click', function () {
-    lastOperand = parseInt(inputWindow.value);
-    operation = 'sum';
-    inputWindow.value = '';
-})
-
-document.getElementById('btn_def').addEventListener('click', function () {
-    lastOperand = parseInt(inputWindow.value);
-    operation = 'def';
-    inputWindow.value = '';
-})
 
 document.getElementById('btn_calc').addEventListener('click', function () {
     if (operation === 'sum'){
@@ -35,6 +26,7 @@ document.getElementById('btn_calc').addEventListener('click', function () {
     }
 })
 
+// кнопка С
 document.getElementById('btn_clr').addEventListener('click', function () {
     lastOperand = 0;
     operation = null;
