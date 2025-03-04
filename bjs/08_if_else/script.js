@@ -21,15 +21,15 @@ const answerField = document.getElementById('answerField');
 
 // Обновляем интерфейс
 orderNumberField.innerText = orderNumber;
-answerField.innerText = `Вы загадали число ${numberToText(answerNumber)}?`;
+answerField.innerText = `Вы загадали число ${writeNumber(answerNumber)}?`;
 
 // генератор фраз
 
 function getRandomPhraseGood() {
     const phrases = [
-        `Да это легко! Ты загадал ${numberToText(answerNumber)}?`,
-        `Наверное, это число ${numberToText(answerNumber)}?`,
-        `Дай угадаю! Это ${numberToText(answerNumber)}?`
+        `Да это легко! Ты загадал ${writeNumber(answerNumber)}?`,
+        `Наверное, это число ${writeNumber(answerNumber)}?`,
+        `Дай угадаю! Это ${writeNumber(answerNumber)}?`
     ];
     return phrases[Math.floor(Math.random() * phrases.length)];
 }
@@ -86,6 +86,12 @@ function numberToText(number) {
     }
 }
 
+// Функция для проверки длины текста и вывода в нужном формате
+function writeNumber(number) {
+    const textCurrent = numberToText(number);
+    return textCurrent.length < 20 ? textCurrent : number.toString();
+}
+
 // кнопка повтор
 document.getElementById('btnRetry').addEventListener('click', function () {
     // ввод максимума и минимума (страховка от ввода текста)
@@ -110,7 +116,7 @@ document.getElementById('btnRetry').addEventListener('click', function () {
     answerNumber  = Math.floor((minValue + maxValue) / 2);
 
     orderNumberField.innerText = orderNumber;
-    answerField.innerText = `Вы загадали число ${numberToText(answerNumber)}?`;
+    answerField.innerText = `Вы загадали число ${writeNumber(answerNumber)}?`;
 })
 
 // кнопка <
