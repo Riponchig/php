@@ -54,21 +54,25 @@ function getRandomPhraseFinal() {
 // кнопка повтор
 document.getElementById('btnRetry').addEventListener('click', function () {
     // ввод максимума и минимума (страховка от ввода текста)
-    let minValue = parseInt(prompt('Минимальное знание числа для игры', '0')) || 0;
-    let maxValue = parseInt(prompt('Максимальное знание числа для игры', '100')) || 100;
+    let newMinValue = parseInt(prompt('Минимальное знание числа для игры', '0')) || 0;
+    let newMaxValue = parseInt(prompt('Максимальное знание числа для игры', '100')) || 100;
 
     // Ограничение диапазона значений
-    minValue = minValue < -999 ? -999 : minValue;
-    maxValue = maxValue > 999 ? 999 : maxValue;
+    newMinValue = newMinValue < -999 ? -999 : newMinValue;
+    newMaxValue = newMaxValue > 999 ? 999 : newMaxValue;
+
+    // Новое значение для minValue и maxValue фикс бага
+    minValue = newMinValue;
+    maxValue = newMaxValue;
 
     // Сбрасываем количество попыток и статус игры
-    let orderNumber = 1;
-    let gameRun = true;
+    orderNumber = 1;
+    gameRun = true;
 
     alert(`Загадайте любое целое число от ${minValue} до ${maxValue}, а я его угадаю`);
 
     // первое число
-    let answerNumber  = Math.floor((minValue + maxValue) / 2);
+    answerNumber  = Math.floor((minValue + maxValue) / 2);
 
     orderNumberField.innerText = orderNumber;
     answerField.innerText = `Вы загадали число ${answerNumber }?`;
@@ -79,7 +83,7 @@ document.getElementById('btnLess').addEventListener('click', function () {
     if (gameRun) {
         if (minValue === maxValue) {
             const phraseRandom = Math.round(Math.random());
-            const answerPhrase = getRandomPhrasBad();
+            const answerPhrase = getRandomPhraseBad();
 
             answerField.innerText = answerPhrase;
             gameRun = false;
@@ -112,9 +116,10 @@ document.getElementById('btnOver').addEventListener('click', function () {
     }
 });
 
+// Кнопка верно!
 document.getElementById('btnEqual').addEventListener('click', function () {
     if (gameRun){
-        answerField.innerText = getRandomPhrasFinal();
+        answerField.innerText = getRandomPhraseFinal();
         gameRun = false;
     }
 })
