@@ -1,5 +1,6 @@
 let lastOperand = 0;
 let operation = null;
+let result;
 
 const inputWindow = document.getElementById('inputWindow');
 
@@ -10,21 +11,37 @@ document.querySelectorAll('.btn-num').forEach(button => {
     });
 });
 
+// кнопки + - * / sqrt
+document.querySelectorAll('.btn-op').forEach(button => {
+    button.addEventListener('click', function () {
+        if (this.getAttribute('data-op') === "sqrt") {
+            inputWindow.value = Math.sqrt(parseFloat(inputWindow.value));
+            return;
+        }
+        lastOperand = parseFloat(inputWindow.value);
+        operation = this.getAttribute('data-op');
+        inputWindow.value = "";
+    });
+});
 
+// Кнопка =
 document.getElementById('btn_calc').addEventListener('click', function () {
-    if (operation === 'sum'){
-        const resultat = lastOperand + parseInt(inputWindow.value);
+    if (operation) {
+        let currentOperand = parseFloat(inputWindow.value);
+        switch (operation) {
+            case '+': result = lastOperand + currentOperand; 
+            break;
+            case '-': result = lastOperand - currentOperand; 
+            break;
+            case '*': result = lastOperand * currentOperand;
+            break;
+            case '/': result = currentOperand !== 0 ? lastOperand / currentOperand : 'Division by 0'; break;
+        }
+        inputWindow.value = result;
         operation = null;
-        lastOperand =0;
-        inputWindow.value = resultat;
+        lastOperand = 0;
     }
-    if (operation === 'def'){
-        const resultat = lastOperand - parseInt(inputWindow.value);
-        operation = null;
-        lastOperand =0;
-        inputWindow.value = resultat;
-    }
-})
+});
 
 // кнопка С
 document.getElementById('btn_clr').addEventListener('click', function () {
