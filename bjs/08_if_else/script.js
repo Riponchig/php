@@ -42,6 +42,15 @@ function getRandomPhraseBad() {
     return phrases[Math.floor(Math.random() * phrases.length)];
 }
 
+function getRandomPhraseFinal() {
+    const phrases = [
+        `Я всегда угадываю\n\u{1F60E}`,
+        `Like a boss\n\u{1F60E}`,
+        `Я лучший !!!\n\u{1F60E}`
+    ];
+    return phrases[Math.floor(Math.random() * phrases.length)];
+}
+
 // кнопка повтор
 document.getElementById('btnRetry').addEventListener('click', function () {
     // ввод максимума и минимума (страховка от ввода текста)
@@ -105,7 +114,7 @@ document.getElementById('btnOver').addEventListener('click', function () {
 
 document.getElementById('btnEqual').addEventListener('click', function () {
     if (gameRun){
-        answerField.innerText = `Я всегда угадываю\n\u{1F60E}`
+        answerField.innerText = getRandomPhrasFinal();
         gameRun = false;
     }
 })
